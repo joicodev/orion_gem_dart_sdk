@@ -5,7 +5,6 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:ai_chat_dart_sdk/ai_chat_dart_sdk.dart';
-import 'package:ai_chat_dart_sdk/src/core/storage/data/secure_storage_repository_impl.dart';
 import 'package:dio/dio.dart';
 
 part 'interceptors/client_log_interceptor.dart';

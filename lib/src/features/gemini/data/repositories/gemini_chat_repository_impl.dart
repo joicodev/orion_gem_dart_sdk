@@ -12,11 +12,13 @@ class GeminiChatRepositoryImpl implements GeminiChatRepository {
 
   @override
   Future<Either<BaseException, String>> basicPrompt(
-    BasicPromptDto prompt,
+    BasicPrompParams params,
   ) async {
     return await _client.apiCall(
       converter: (String data) => data,
-      apiMethod: _geminiApi.geminiControllerBasicPrompt(basicPromptDto: prompt),
+      apiMethod: _geminiApi.geminiControllerBasicPrompt(
+        basicPromptDto: params.toBuilder(),
+      ),
     );
   }
 }

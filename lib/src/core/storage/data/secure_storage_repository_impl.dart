@@ -5,7 +5,9 @@ class SecureStorageRepositoryImpl extends SecureStorageRepository {
   final String _accessToken = "access_token";
   final String _refreshToken = "refresh_token";
 
-  final _secureStorage = FlutterSecureStorage();
+  final FlutterSecureStorage _secureStorage = FlutterSecureStorage(
+    aOptions: AndroidOptions(encryptedSharedPreferences: true),
+  );
 
   @override
   Future<String?> readAccessToken() async {
