@@ -1,7 +1,6 @@
 part of '../client_library.dart';
 
 enum APIExceptionErrorType {
-  userNameAlreadyExists,
   invalidArgument,
   notFound,
   unknown;
@@ -18,7 +17,7 @@ enum APIExceptionErrorType {
 
 class APIException extends BaseException<APIExceptionErrorType> {
   const APIException({
-    required super.error,
+    required super.type,
     required super.message,
     super.exception,
   });

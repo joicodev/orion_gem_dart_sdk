@@ -18,7 +18,7 @@ enum SerializingExceptionErrorType {
 class SerializingException
     extends BaseException<SerializingExceptionErrorType> {
   const SerializingException({
-    required super.error,
+    required super.type,
     required super.message,
     super.exception,
   });
@@ -26,7 +26,7 @@ class SerializingException
   static fromArgumentError(ArgumentError error) {
     return SerializingException(
       message: error.name ?? error.message,
-      error: SerializingExceptionErrorType.argumentsError,
+      type: SerializingExceptionErrorType.argumentsError,
       exception: Exception(error.message),
     );
   }

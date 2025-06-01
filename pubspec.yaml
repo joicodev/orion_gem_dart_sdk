@@ -13,8 +13,8 @@ dependencies:
 
   gemini_dart_client:
     git:
-      url: git@gitlab.com:gemini_chat_app/gemini-dart-client.git
-      ref: "develop"
+      url: git@github.com:joicodev/gemini_dart_client.git
+      ref: "main"
 
   dio:
   either_dart:

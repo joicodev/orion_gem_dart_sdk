@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:ai_chat_dart_sdk/ai_chat_dart_sdk.dart';
-import 'package:ai_chat_dart_sdk/src/core/dio_client/client_library.dart';
 import 'package:dio/dio.dart';
 import 'package:gemini_dart_client/gemini_dart_client.dart';
 
@@ -29,36 +28,6 @@ class AIChatDioClient {
     return dio;
   }
 
-  /*void _setApiClientToken(String name, String token) {
-    _geminiDartClient.setBearerAuth(name, token);
-  }
-
-   Token? getTokens() {
-    final refreshToken = _sessionManager.refreshToken;
-    final authorizationToken = _sessionManager.authorizationToken;
-    if (refreshToken != null &&
-        refreshToken.isNotEmpty &&
-        authorizationToken != null &&
-        authorizationToken.isNotEmpty) {
-      return Token((b) {
-        b.refreshToken = refreshToken;
-        b.authorizationToken = authorizationToken;
-      });
-    }
-
-    return null;
-  }
-
-  void saveToken(Token tokenData, String emailLogged) {
-    _sessionManager.saveTokensAndUserLogged(tokenData, emailLogged);
-    _setApiClientToken(
-      KeysConst.authorizationToken,
-      tokenData.authorizationToken ?? '',
-    );
-
-    _setApiClientToken(KeysConst.refreshToken, tokenData.refreshToken ?? '');
-  } */
-
   void clearTokens() => _secureStorage.clearTokens();
 
   Future<Either<BaseException, R>> apiCall<R, T>({
@@ -80,7 +49,7 @@ class AIChatDioClient {
         return Left(
           SerializingException(
             message: 'An error occurred while parsing the data',
-            error: SerializingExceptionErrorType.serializeData,
+            type: SerializingExceptionErrorType.serializeData,
           ),
         );
       }
@@ -88,16 +57,8 @@ class AIChatDioClient {
       print('DioException :::: $e');
 
       return Left(
-        DIOException(message: getDioErrorMessage(e.type), error: e.type),
+        DIOException(message: e.message ?? 'Unknown error', type: e.type),
       );
-      /* try {
-        return _handleAPIException(e.response!);
-      } catch (_) {
-        return Left(DIOException(
-          message: _getDioErrorMessage(e.type),
-          error: e.type,
-        ));
-      } */
     }
   }
 
@@ -129,27 +90,11 @@ class AIChatDioClient {
       );
     }
 
-    /*
-    final code = APIExceptionType.valueOf(jsonResult['code'] ?? "");
-    if (code == APIExceptionType.userDeleted) {
-      SecureStorageRepositoryImpl().clearTokens();
-      callbackError.call();
-    }*/
-
     return Left(
       APIException(
         message: message,
-        error: APIExceptionErrorType.valueOf(jsonResult['error'] ?? ""),
+        type: APIExceptionErrorType.valueOf(jsonResult['error'] ?? ""),
       ),
     );
   }
-
-  /* Future<void> saveUserLoggedLocalDB(DomainUserAuthResponse response) async {
-    try {
-      saveToken(response.tokens!, response.domainUser?.email ?? '');
-      await persistenceClient.updateUsers([response.domainUser!]);
-    } catch (e) {
-      print('ERROR SAVING USER >> $e');
-    }
-  } */
 }

@@ -3,13 +3,13 @@ part of '../client_library.dart';
 enum BaseExceptionType { generic, unknown, notFound }
 
 class BaseException<T> implements Exception {
-  final T error;
+  final T type;
   final String message;
   final Exception? exception;
 
   const BaseException({
     required this.message,
-    required this.error,
+    required this.type,
     this.exception,
   });
 
@@ -17,7 +17,7 @@ class BaseException<T> implements Exception {
     return BaseException(
       message: 'Unknown error exception',
       exception: exception,
-      error: BaseExceptionType.unknown,
+      type: BaseExceptionType.unknown,
     );
   }
 

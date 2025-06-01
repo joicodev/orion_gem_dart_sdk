@@ -1,5 +1,4 @@
 import 'package:ai_chat_dart_sdk/ai_chat_dart_sdk.dart';
-import 'package:ai_chat_dart_sdk/src/core/dio_client/client_library.dart';
 import 'package:gemini_dart_client/gemini_dart_client.dart';
 
 class GeminiChatRepositoryImpl implements GeminiChatRepository {
