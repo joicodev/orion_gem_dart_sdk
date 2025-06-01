@@ -1,4 +1,4 @@
-name: ai_chat_dart_sdk
+name: orion_gem_dart_sdk
 description: A starting point for Dart libraries or applications.
 version: 1.0.0
 publish_to: none
@@ -11,10 +11,11 @@ environment:
 dependencies:
   # path: ^1.8.0
 
-  gemini_dart_client:
-    git:
-      url: git@github.com:joicodev/gemini_dart_client.git
-      ref: "main"
+  orion_gem_nest_dart_client:
+    path: ../orion_gem_nest_dart_client
+    # git:
+    #   url: git@github.com:joicodev/orion_gem_dart_client.git
+    #   ref: "main"
 
   dio:
   either_dart:

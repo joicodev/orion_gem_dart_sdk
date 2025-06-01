@@ -1,22 +1,24 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'package:ai_chat_dart_sdk/ai_chat_dart_sdk.dart';
 import 'package:dio/dio.dart';
-import 'package:gemini_dart_client/gemini_dart_client.dart';
+import 'package:orion_gem_dart_sdk/orion_gem_dart_sdk.dart';
+import 'package:orion_gem_nest_dart_client/orion_gem_nest_dart_client.dart';
 
-class AIChatDioClient {
-  late final GeminiDartClient _geminiDartClient;
+class OrionGemChatDioClient {
+  late final OrionGemNestDartClient _client;
 
   final SecureStorageRepository _secureStorage;
 
-  AIChatDioClient(String basePath, this._secureStorage, {String? geminiHost}) {
-    _geminiDartClient = GeminiDartClient(
-      dio: _dioInstance(geminiHost ?? basePath),
-    );
+  OrionGemChatDioClient(
+    String basePath,
+    this._secureStorage, {
+    String? geminiHost,
+  }) {
+    _client = OrionGemNestDartClient(dio: _dioInstance(geminiHost ?? basePath));
   }
 
   GeminiApi get geminiApi {
-    return _geminiDartClient.getGeminiApi();
+    return _client.getGeminiApi();
   }
 
   Dio _dioInstance(String host) {

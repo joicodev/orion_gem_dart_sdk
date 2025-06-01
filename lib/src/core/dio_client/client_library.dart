@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:ai_chat_dart_sdk/ai_chat_dart_sdk.dart';
+import 'package:orion_gem_dart_sdk/orion_gem_dart_sdk.dart';
 import 'package:dio/dio.dart';
 
 part 'interceptors/client_log_interceptor.dart';

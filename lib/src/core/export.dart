@@ -1,5 +1,5 @@
 // DIO CLIENT
-export 'dio_client/ai_chat_dio_client.dart';
+export 'dio_client/orion_gem_chat_dio_client.dart';
 export 'dio_client/client_library.dart';
 
 // STORAGE

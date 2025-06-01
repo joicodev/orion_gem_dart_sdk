@@ -1,6 +1,5 @@
-import 'package:ai_chat_dart_sdk/ai_chat_dart_sdk.dart';
-import 'package:ai_chat_dart_sdk/src/core/dio_client/client_library.dart';
-import 'package:gemini_dart_client/gemini_dart_client.dart';
+import 'package:orion_gem_dart_sdk/orion_gem_dart_sdk.dart';
+import 'package:orion_gem_nest_dart_client/orion_gem_nest_dart_client.dart';
 
 /// This class is used to execute the [BasicPromptUseCase].
 class BasicPromptUseCase extends BaseUseCases<BasicPrompParams, String> {

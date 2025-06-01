@@ -1,8 +1,8 @@
-import 'package:ai_chat_dart_sdk/ai_chat_dart_sdk.dart';
-import 'package:gemini_dart_client/gemini_dart_client.dart';
+import 'package:orion_gem_dart_client/orion_gem_dart_client.dart';
+import 'package:orion_gem_dart_sdk/orion_gem_dart_sdk.dart';
 
 class GeminiChatRepositoryImpl implements GeminiChatRepository {
-  final AIChatDioClient _client;
+  final OrionGemChatDioClient _client;
   late final GeminiApi _geminiApi;
 
   GeminiChatRepositoryImpl(this._client) {
