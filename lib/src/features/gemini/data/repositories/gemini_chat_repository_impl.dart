@@ -1,5 +1,5 @@
-import 'package:orion_gem_dart_client/orion_gem_dart_client.dart';
 import 'package:orion_gem_dart_sdk/orion_gem_dart_sdk.dart';
+import 'package:orion_gem_nest_dart_client/orion_gem_nest_dart_client.dart';
 
 class GeminiChatRepositoryImpl implements GeminiChatRepository {
   final OrionGemChatDioClient _client;
@@ -16,6 +16,18 @@ class GeminiChatRepositoryImpl implements GeminiChatRepository {
     return await _client.apiCall(
       converter: (String data) => data,
       apiMethod: _geminiApi.geminiControllerBasicPrompt(
+        basicPromptDto: params.toBuilder(),
+      ),
+    );
+  }
+
+  @override
+  Future<Either<BaseException, String>> basicPromptStream(
+    BasicPromptStreamParams params,
+  ) async {
+    return await _client.apiCall(
+      converter: (String data) => data,
+      apiMethod: _geminiApi.geminiControllerBasicPromptStream(
         basicPromptDto: params.toBuilder(),
       ),
     );
