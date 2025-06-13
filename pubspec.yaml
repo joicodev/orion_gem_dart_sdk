@@ -14,13 +14,15 @@ dependencies:
   orion_gem_nest_dart_client:
     path: ../orion_gem_nest_dart_client
     # git:
-    #   url: git@github.com:joicodev/orion_gem_dart_client.git
-    #   ref: "main"
+    #   url: git@github.com:joicodev/orion_gem_nest_dart_client.git
+    #   ref: "develop"
 
   dio:
   either_dart:
-  flutter_secure_storage: ^9.2.4
+  # flutter_secure_storage: ^9.2.4
+  mocktail: ^1.0.4
 
 dev_dependencies:
   lints: ^5.0.0
   test: ^1.24.0
+  

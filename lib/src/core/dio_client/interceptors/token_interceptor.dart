@@ -3,7 +3,7 @@ part of '../client_library.dart';
 class TokenInterceptor extends Interceptor {
   // int retryConnection = 0;
   final Dio _dio;
-  final SecureStorageRepository secureStorage = SecureStorageRepositoryImpl();
+  // final SecureStorageRepository secureStorage = SecureStorageRepositoryImpl();
   final List<Map<dynamic, dynamic>> failedRequests = [];
 
   TokenInterceptor(this._dio);
@@ -13,14 +13,14 @@ class TokenInterceptor extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    final isSecure = _isSecure(options);
+    /* final isSecure = _isSecure(options);
     if (isSecure) {
       final accessToken = await secureStorage.readAccessToken();
       if (accessToken != null) {
         options.headers[HttpHeaders.authorizationHeader] =
             "Bearer $accessToken";
       }
-    }
+    } */
 
     final headerLang = options.extra["Accept-Language"];
     if (headerLang != null && headerLang != "") {
@@ -54,10 +54,10 @@ class TokenInterceptor extends Interceptor {
       return handler.next(err);
     }
 
-    final refreshToken = await secureStorage.readRefreshToken();
+    /* final refreshToken = await secureStorage.readRefreshToken();
     if (refreshToken == null) {
       return handler.next(err);
-    }
+    } */
 
     /* print('****************BEFORE REFRESH TOKEN****************');
     final resultRefreshToken = await _refreshToken(refreshToken);

@@ -7,11 +7,11 @@ import 'package:orion_gem_nest_dart_client/orion_gem_nest_dart_client.dart';
 class OrionGemChatDioClient {
   late final OrionGemNestDartClient _client;
 
-  final SecureStorageRepository _secureStorage;
+  // final SecureStorageRepository _secureStorage;
 
   OrionGemChatDioClient(
-    String basePath,
-    this._secureStorage, {
+    String basePath, {
+    // this._secureStorage,
     String? geminiHost,
   }) {
     _client = OrionGemNestDartClient(dio: _dioInstance(geminiHost ?? basePath));
@@ -30,7 +30,7 @@ class OrionGemChatDioClient {
     return dio;
   }
 
-  void clearTokens() => _secureStorage.clearTokens();
+  // void clearTokens() => _secureStorage.clearTokens();
 
   Future<Either<BaseException, R>> apiCall<R, T>({
     required Future<Response<T>> apiMethod,
