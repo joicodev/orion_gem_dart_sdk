@@ -1,53 +1,27 @@
-import 'dart:convert';
-
-import 'package:dio/dio.dart';
-import 'package:orion_gem_nest_dart_client/orion_gem_nest_dart_client.dart';
+import 'package:orion_gem_dart_sdk/orion_gem_dart_sdk.dart';
 
 Future<void> main() async {
-  final dio = Dio(BaseOptions(baseUrl: 'http://192.168.1.108:3000/'));
-  final rs = await dio.post<ResponseBody>(
-    'api/gemini/basic-prompt-stream',
-    options: Options(responseType: ResponseType.stream),
-    data: {"prompt": "What is the History of Venezuela?"},
+  // Instantiate your use case with the HTTP client
+  final basicPromptStreamUseCase = BasicPromptStreamUseCase(
+    GeminiChatRepositoryImpl(SdkDioClient('http://192.168.1.107:3000/')),
   );
 
-  print('THE TYPE IS >>> ${rs.data.runtimeType}');
+  // Execute the stream prompt and await the Either<BaseException, String>
+  final result = await basicPromptStreamUseCase.execute(
+    BasicPromptStreamParams(prompt: 'What is the History of Venezuela?'),
+  );
 
-  await for (final chunk in rs.data!.stream) {
-    final decodedString = utf8.decode(chunk);
-    print(decodedString);
-  }
+  // Handle error or success
+  result.fold(
+    (error) {
+      // English comment: print error message if request failed
+      print('Error: ${error.message}');
+    },
+    (fullText) async {
+      // English comment: print the complete streamed response
+      await for (final chunk in fullText) {
+        print(chunk);
+      }
+    },
+  );
 }
-
-/* void main2() async {
-  final dio = Dio(
-    BaseOptions(
-      baseUrl: 'http://192.168.1.108:3000/',
-      responseType: ResponseType.plain,
-      headers: {"Accept": "text/event-stream", "Cache-Control": "no-cache"},
-    ),
-  );
-
-  final api = OrionGemNestDartClient(dio: dio).getGeminiApi();
-  final BasicPromptDto basicPromptDto = BasicPromptDto(
-    (b) => b.prompt = 'What is the History of Venezuela?',
-  );
-
-  try {
-    // Await the response
-    final response = await api.geminiControllerBasicPromptStreamExample(
-      basicPromptDto: basicPromptDto,
-    );
-
-    // The response.data is now a complete String. Just print it.
-    if (response.data != null) {
-      print('==============================');
-      print(response.data.runtimeType);
-    }
-  } catch (e) {
-    print(
-      'Exception when calling GeminiApi->geminiControllerBasicPromptStream: $e\n',
-    );
-  }
-}
- */

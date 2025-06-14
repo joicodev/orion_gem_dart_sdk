@@ -21,8 +21,8 @@ dependencies:
   either_dart:
   # flutter_secure_storage: ^9.2.4
   mocktail: ^1.0.4
+  built_value: ^8.10.1
 
 dev_dependencies:
   lints: ^5.0.0
   test: ^1.24.0
-  

@@ -4,22 +4,18 @@ import 'package:dio/dio.dart';
 import 'package:orion_gem_dart_sdk/orion_gem_dart_sdk.dart';
 import 'package:orion_gem_nest_dart_client/orion_gem_nest_dart_client.dart';
 
-class OrionGemChatDioClient {
-  late final OrionGemNestDartClient _client;
+enum StreamApiClientMethod { get, post }
 
-  // final SecureStorageRepository _secureStorage;
+class SdkDioClient {
+  late final OrionGemNestDartClient _orionGemApiClient;
 
-  OrionGemChatDioClient(
-    String basePath, {
-    // this._secureStorage,
-    String? geminiHost,
-  }) {
-    _client = OrionGemNestDartClient(dio: _dioInstance(geminiHost ?? basePath));
+  SdkDioClient(String basePath, {String? geminiHost}) {
+    _orionGemApiClient = OrionGemNestDartClient(
+      dio: _dioInstance(geminiHost ?? basePath),
+    );
   }
 
-  GeminiApi get geminiApi {
-    return _client.getGeminiApi();
-  }
+  OrionGemNestDartClient get instance => _orionGemApiClient;
 
   Dio _dioInstance(String host) {
     final dio = Dio();
@@ -31,6 +27,42 @@ class OrionGemChatDioClient {
   }
 
   // void clearTokens() => _secureStorage.clearTokens();
+
+  Future<Response<ResponseBody>> streamApiCall<T>({
+    required String path,
+    Object? body,
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+    String method = 'POST',
+  }) async {
+    final options = Options(
+      headers: {
+        "Accept": "text/event-stream",
+        "Cache-Control": "no-cache",
+        ...?headers,
+      },
+      method: method.toUpperCase(),
+      extra: {'secure': <Map<String, String>>[], ...?extra},
+      validateStatus: validateStatus,
+      responseType: ResponseType.stream,
+    );
+
+    final dio = _orionGemApiClient.dio;
+    final response = await dio.request<ResponseBody>(
+      path,
+      data: body,
+      options: options,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    return response;
+  }
 
   Future<Either<BaseException, R>> apiCall<R, T>({
     required Future<Response<T>> apiMethod,
@@ -87,6 +119,7 @@ class OrionGemChatDioClient {
       log(
         'ERROR PARSING > [${result.requestOptions.path}]: THE DATA ~> ${result.data}',
       );
+
       log(
         'ERROR PARSING > [${result.requestOptions.path}]: ERROR PARSING DATA ~> $e',
       );
