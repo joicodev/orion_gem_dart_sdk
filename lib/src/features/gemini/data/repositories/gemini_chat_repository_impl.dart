@@ -38,7 +38,9 @@ class GeminiChatRepositoryImpl implements GeminiChatRepository {
       );
 
       // Map the raw byte-stream to a decoded String stream
-      final stringStream = rs.data!.stream.map((chunk) => utf8.decode(chunk));
+      final stringStream = rs.data!.stream.map(
+        (chunk) => utf8.decode(chunk, allowMalformed: true),
+      );
 
       // Return the stream wrapped in Right
       return Right(stringStream);

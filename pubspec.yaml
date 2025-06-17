@@ -12,10 +12,10 @@ dependencies:
   # path: ^1.8.0
 
   orion_gem_nest_dart_client:
-    path: ../orion_gem_nest_dart_client
-    # git:
-    #   url: git@github.com:joicodev/orion_gem_nest_dart_client.git
-    #   ref: "develop"
+    # path: ../orion_gem_nest_dart_client
+    git:
+      url: git@github.com:joicodev/orion_gem_nest_dart_client.git
+      ref: "develop"
 
   dio:
   either_dart:
