@@ -8,7 +8,10 @@ Future<void> main() async {
 
   // Execute the stream prompt and await the Either<BaseException, String>
   final result = await basicPromptStreamUseCase.execute(
-    BasicPromptStreamParams(prompt: 'What is the History of Venezuela?'),
+    BasicPromptStreamParams(
+      prompt: 'What is the History of Venezuela?',
+      files: [],
+    ),
   );
 
   // Handle error or success

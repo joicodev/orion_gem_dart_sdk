@@ -61,7 +61,16 @@ class SdkDioClient {
       onReceiveProgress: onReceiveProgress,
     );
 
-    return response;
+    return Response<ResponseBody>(
+      data: response.data,
+      headers: response.headers,
+      isRedirect: response.isRedirect,
+      requestOptions: response.requestOptions,
+      redirects: response.redirects,
+      statusCode: response.statusCode,
+      statusMessage: response.statusMessage,
+      extra: response.extra,
+    );
   }
 
   Future<Either<BaseException, R>> apiCall<R, T>({

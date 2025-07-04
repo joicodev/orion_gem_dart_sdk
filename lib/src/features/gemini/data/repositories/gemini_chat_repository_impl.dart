@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:orion_gem_dart_sdk/orion_gem_dart_sdk.dart';
 import 'package:orion_gem_nest_dart_client/orion_gem_nest_dart_client.dart';
@@ -28,6 +29,42 @@ class GeminiChatRepositoryImpl implements GeminiChatRepository {
     BasicPromptStreamParams params,
   ) async {
     try {
+      /* await _sdkDioHttp.apiCall(
+        converter: (Uint8List data) {
+          final stream = Stream.value(data).map((chunk) {
+            print('Chunk !> $chunk');
+            return utf8.decode(chunk, allowMalformed: true);
+          });
+
+          return stream;
+        },
+        apiMethod: _geminiApi.geminiControllerBasicPromptAssetsStreamV2(
+          prompt: params.prompt,
+          headers: {
+            'Accept': 'text/event-stream',
+            'Content-Type': 'application/json',
+            "Cache-Control": "no-cache",
+          },
+        ),
+      ); */
+
+      /* final request = await _geminiApi
+          .geminiControllerBasicPromptAssetsStreamV2(
+            prompt: params.prompt,
+            // files: params.files,
+            headers: {
+              'Accept': 'text/event-stream',
+              'Content-Type': 'application/json',
+            },
+          );
+
+      print('DATA RERTURNED....');
+
+      // Convert Response<Uint8List> to Stream<String>
+      final stream = Stream.value(
+        request.data!,
+      ).map((chunk) => utf8.decode(chunk, allowMalformed: true)); */
+
       final rs = await _sdkDioHttp.streamApiCall(
         path: '/api/gemini/basic-prompt-stream',
         body: params.buildObject(),
@@ -36,6 +73,8 @@ class GeminiChatRepositoryImpl implements GeminiChatRepository {
           'Content-Type': 'application/json',
         },
       );
+
+      print('RESULT HERE !>>>>>>');
 
       // Map the raw byte-stream to a decoded String stream
       final stringStream = rs.data!.stream.map(

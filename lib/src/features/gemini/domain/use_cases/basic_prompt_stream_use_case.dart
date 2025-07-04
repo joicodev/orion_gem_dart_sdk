@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:built_value/serializer.dart';
 import 'package:orion_gem_dart_sdk/orion_gem_dart_sdk.dart';
 import 'package:orion_gem_nest_dart_client/orion_gem_nest_dart_client.dart';
@@ -23,7 +25,9 @@ class BasicPromptStreamParams {
   /// The prompt to be sent to the Gemini API.
   final String prompt;
 
-  BasicPromptStreamParams({required this.prompt});
+  final List<File> files;
+
+  BasicPromptStreamParams({required this.prompt, required this.files});
 
   /// This function is used to convert the [BasicPrompParams] to a [BasicPromptDto].
   BasicPromptDto toBuilder() {
